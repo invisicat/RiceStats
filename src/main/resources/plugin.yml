@@ -1,0 +1,12 @@
+name: RiceStats
+version: '${project.version}'
+main: cc.ricecx.ricestats.RiceStats
+api-version: 1.18
+prefix: RiceStatistics
+authors: [ RiceCX ]
+description: Plugin for my SMP Server to track general player statistics in a fancy way.
+website: https://ricecx.cc
+commands:
+  ricestats:
+    description: "Entryway to Rice Stat's commands"
+    permission-message: "You do not have permission to use this command."

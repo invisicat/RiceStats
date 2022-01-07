@@ -1,0 +1,14 @@
+
+
+trackers:
+  player:
+    blocks-mined:
+      enabled: false
+    blocks-placed:
+      enabled: true
+
+influx:
+  host: http://localhost:8086
+  database: rice_stats
+  username: root
+  password: root
