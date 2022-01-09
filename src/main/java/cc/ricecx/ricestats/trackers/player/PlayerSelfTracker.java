@@ -25,7 +25,6 @@ public class PlayerSelfTracker extends Tracker {
 
     private final Map<UUID, Long> playerTime = new HashMap<>();
 
-
     @TrackerInfo(name = "Player Gather Experience", description = "Track player experience", event = PlayerPickupExperienceEvent.class)
     public void onExperienceGather(PlayerPickupExperienceEvent evt) {
         Player player = evt.getPlayer();
@@ -53,7 +52,7 @@ public class PlayerSelfTracker extends Tracker {
     @TrackerInfo(name = "Player Craft", description = "Track player craft", event = CraftItemEvent.class)
     public void onPlayerCraft(CraftItemEvent evt) {
         HumanEntity entity = evt.getWhoClicked();
-        if(evt.getCurrentItem() == null) return;
+        if (evt.getCurrentItem() == null) return;
         addTracker(Point.measurement("player_craft")
                 .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .tag("player", entity.getName())
@@ -96,7 +95,7 @@ public class PlayerSelfTracker extends Tracker {
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent evt) {
-        if(!playerTime.containsKey(evt.getPlayer().getUniqueId())) return;
+        if (!playerTime.containsKey(evt.getPlayer().getUniqueId())) return;
         addTracker(Point.measurement("time_played")
                 .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .tag("player", evt.getPlayer().getName())
@@ -122,7 +121,7 @@ public class PlayerSelfTracker extends Tracker {
     }
 
     private String ifNull(String s, String def) {
-        if(s == null) return def;
+        if (s == null) return def;
         return s;
     }
 }

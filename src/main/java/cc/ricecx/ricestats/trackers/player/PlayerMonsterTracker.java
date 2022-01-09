@@ -14,7 +14,7 @@ public class PlayerMonsterTracker extends Tracker {
 
     @TrackerInfo(name = "player_monster_killed", description = "Track player monster killed", event = EntityDeathEvent.class)
     public void onMobKill(EntityDeathEvent evt) {
-        if(evt.getEntity().getKiller() != null) {
+        if (evt.getEntity().getKiller() != null) {
             Player player = evt.getEntity().getKiller();
 
             addTracker(Point.measurement("monster_killed")

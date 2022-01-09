@@ -11,7 +11,6 @@ import org.influxdb.dto.Point;
 @TrackerModuleInfo(name = "Server Performance Tracker")
 public class ServerPerformanceTracker extends Tracker {
 
-
     public ServerPerformanceTracker() {
         super();
         startTasks();
@@ -29,7 +28,6 @@ public class ServerPerformanceTracker extends Tracker {
 
         RiceStats.getInstance().getLogger().info("Server performance tracker started");
     }
-
 
     private void reportCurrentTickrate() {
         addTracker(Point.measurement("server")

@@ -1,6 +1,5 @@
 package cc.ricecx.ricestats.core;
 
-
 import org.bukkit.event.Event;
 
 import java.lang.annotation.ElementType;

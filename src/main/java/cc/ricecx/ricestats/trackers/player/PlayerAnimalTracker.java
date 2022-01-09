@@ -27,7 +27,7 @@ public class PlayerAnimalTracker extends Tracker {
 
     @TrackerInfo(name = "player_animal_breed", description = "Track player animal breed", event = EntityBreedEvent.class)
     public void onAnimalBreed(EntityBreedEvent evt) {
-        if(evt.getBreeder() instanceof Player player) {
+        if (evt.getBreeder() instanceof Player player) {
             addTracker(Point.measurement("animal_breed")
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                     .tag("player", player.getName())
@@ -40,7 +40,7 @@ public class PlayerAnimalTracker extends Tracker {
 
     @TrackerInfo(name = "player_animal_sheep_dye", description = "Track player animal sheep dye", event = SheepDyeWoolEvent.class)
     public void onSheepDyeEvent(SheepDyeWoolEvent evt) {
-        if(evt.getPlayer() == null) return;
+        if (evt.getPlayer() == null) return;
         addTracker(Point.measurement("sheep_dye")
                 .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                 .tag("player", evt.getPlayer().getName())
@@ -63,7 +63,7 @@ public class PlayerAnimalTracker extends Tracker {
 
     @TrackerInfo(name = "player_animal_fish", description = "Track player on fish caught", event = PlayerFishEvent.class)
     public void onPlayerFish(PlayerFishEvent evt) {
-        if(evt.getState() == PlayerFishEvent.State.CAUGHT_FISH && evt.getCaught() instanceof Fish fish) {
+        if (evt.getState() == PlayerFishEvent.State.CAUGHT_FISH && evt.getCaught() instanceof Fish fish) {
             addTracker(Point.measurement("fish_caught")
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                     .tag("player", evt.getPlayer().getName())
@@ -76,14 +76,14 @@ public class PlayerAnimalTracker extends Tracker {
 
     @TrackerInfo(name = "player_animal_mount", description = "Track player animal mount", event = EntityMountEvent.class)
     public void onEntityMount(EntityMountEvent evt) {
-        if(evt.getMount() instanceof Player player) {
+        if (evt.getMount() instanceof Player player) {
             mountMap.put(player.getUniqueId(), System.currentTimeMillis());
         }
     }
 
     @EventHandler
     public void onEntityDismount(EntityDismountEvent evt) {
-        if(evt.getDismounted() instanceof Player player) {
+        if (evt.getDismounted() instanceof Player player) {
             EntityType entity = evt.getEntity().getType();
 
             // InfluxDB

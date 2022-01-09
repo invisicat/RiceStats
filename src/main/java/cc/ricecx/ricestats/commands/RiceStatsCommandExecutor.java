@@ -18,11 +18,11 @@ public class RiceStatsCommandExecutor implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command _command, @NotNull String label, String[] args) {
-        if(args.length == 0) return false;
+        if (args.length == 0) return false;
 
         SubCommand subCommand = Commands.fromName(args[0]);
 
-        if(subCommand == null) return false;
+        if (subCommand == null) return false;
 
         subCommand.execute(sender, Arrays.copyOfRange(args, 1, args.length));
 
@@ -34,7 +34,7 @@ public class RiceStatsCommandExecutor implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         final List<String> completions = new ArrayList<>();
 
-        if(args.length == 1) {
+        if (args.length == 1) {
             StringUtil.copyPartialMatches(args[0], Commands.getCommandNames(), completions);
             //sort the list
             Collections.sort(completions);
@@ -43,7 +43,7 @@ public class RiceStatsCommandExecutor implements CommandExecutor, TabCompleter {
 
         SubCommand subCommand = Commands.fromName(args[0]);
 
-        if(subCommand == null) return null;
+        if (subCommand == null) return null;
 
         return subCommand.onTabComplete(sender, Arrays.copyOfRange(args, 1, args.length));
     }

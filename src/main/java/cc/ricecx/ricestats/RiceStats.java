@@ -35,14 +35,14 @@ public final class RiceStats extends JavaPlugin {
     private void initializeInflux() {
         final String serverURL = this.getConfig().getString("influx.host"), username = this.getConfig().getString("influx.username"), password = this.getConfig().getString("influx.password");
 
-        if(serverURL == null || username == null)
+        if (serverURL == null || username == null)
             throw new RuntimeException("InfluxDB configuration is missing!");
 
         influxDB = InfluxDBFactory.connect(serverURL, username, password);
 
         String databaseName = this.getConfig().getString("influx.database") != null ? this.getConfig().getString("influx.database") : "rice_stats";
 
-        if(!influxDB.ping().isGood())
+        if (!influxDB.ping().isGood())
             throw new RuntimeException("Could not connect to InfluxDB! Please check your InfluxDB credentials.");
 
         influxDB.query(new Query("CREATE DATABASE " + databaseName));
@@ -60,7 +60,7 @@ public final class RiceStats extends JavaPlugin {
 
     private void registerCommand() {
         PluginCommand command = getCommand("ricestats");
-        if(command == null) throw new RuntimeException("Could not hook with rice stats command!");
+        if (command == null) throw new RuntimeException("Could not hook with rice stats command!");
         command.setExecutor(mainCommand);
         command.setTabCompleter(mainCommand);
     }
@@ -85,7 +85,6 @@ public final class RiceStats extends JavaPlugin {
     public void onDisable() {
         influxDB.close();
     }
-
 
     public static RiceStats getInstance() {
         return getPlugin(RiceStats.class);

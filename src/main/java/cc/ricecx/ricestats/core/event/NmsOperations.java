@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 // NMS Reflection stuff
 //
 
-
 public class NmsOperations {
     private static final Logger logger = Logger.getLogger("VillagerTradeListener.NmsOperations");
     private static final boolean allClassesAndMethodsOK;
@@ -66,6 +65,7 @@ public class NmsOperations {
 
         return Class.forName(nmsClassName);
     }
+
     public static Class<?> getNMSClass(final String nmsClassName) throws ClassNotFoundException {
         String clazzName = "net.minecraft.server." + nmsVersionString + nmsClassName;
         return Class.forName(clazzName);
@@ -92,11 +92,12 @@ public class NmsOperations {
      * Produces a price adjusted ItemStack of the first input item after player-villager reputation, HotV,
      * and demand are calculated. Simply put, the result reflects the price actually being asked by the villager
      * for the first input item.
-     *
+     * <p>
      * Notes:
-     *   Price adjustments only occur when the villager is actively engaged in a trade with a player!
-     *   Only the first ingredient is ever discounted - that's why there is no getPriceAdjustedIngredient2.
-     * @param villager owning villager
+     * Price adjustments only occur when the villager is actively engaged in a trade with a player!
+     * Only the first ingredient is ever discounted - that's why there is no getPriceAdjustedIngredient2.
+     *
+     * @param villager   owning villager
      * @param offerIndex index of the offer/recipe;
      * @return Price adjusted ItemStack
      */
@@ -104,29 +105,33 @@ public class NmsOperations {
         checkAllClassesAndMethodsOK();
         try {
             final Object nmsAbstractVillager = obcCraftAbstractVillager_getHandle.invoke(villager);
-            final Object nmsOffer = ((ArrayList)nmsEntityVillagerAbstract_getOffers.invoke(nmsAbstractVillager)).get(offerIndex);
+            final Object nmsOffer = ((ArrayList) nmsEntityVillagerAbstract_getOffers.invoke(nmsAbstractVillager)).get(offerIndex);
             final Object nmsItemStack1 = nmsMerchantRecipe_getBuyItem1.invoke(nmsOffer);
-            return (ItemStack)obcCraftItemStack_asBukkitCopy.invoke(null, nmsItemStack1);
+            return (ItemStack) obcCraftItemStack_asBukkitCopy.invoke(null, nmsItemStack1);
         } catch (IllegalAccessException | InvocationTargetException ex) {
             ex.printStackTrace();
             return null;
         }
     }
 
-    /** This is the amount the price is adjusted by - it accounts for player-villager reputation scores and HotV effect.
-     * NOTICE: this value will always be zero, unless the villager is engaged in a trade.*/
-    public static int getOfferSpecialPriceDiff(final AbstractVillager villager, final int offerIndex) throws InvalidNmsOperationsState{
+    /**
+     * This is the amount the price is adjusted by - it accounts for player-villager reputation scores and HotV effect.
+     * NOTICE: this value will always be zero, unless the villager is engaged in a trade.
+     */
+    public static int getOfferSpecialPriceDiff(final AbstractVillager villager, final int offerIndex) throws InvalidNmsOperationsState {
         checkAllClassesAndMethodsOK();
         try {
             final Object nmsAbstractVillager = obcCraftAbstractVillager_getHandle.invoke(villager);
-            final Object nmsOffer = ((ArrayList)nmsEntityVillagerAbstract_getOffers.invoke(nmsAbstractVillager)).get(offerIndex);
-            return (Integer)nmsMerchantRecipe_getSpecialPrice.invoke(nmsOffer);
+            final Object nmsOffer = ((ArrayList) nmsEntityVillagerAbstract_getOffers.invoke(nmsAbstractVillager)).get(offerIndex);
+            return (Integer) nmsMerchantRecipe_getSpecialPrice.invoke(nmsOffer);
         } catch (IllegalAccessException | InvocationTargetException ex) {
             throw new InvalidNmsOperationsState("Reflection failure while attempting to fetch offer specialPriceDiff", ex);
         }
     }
 
-    /** The demand value affects pricing when it is GT zero. */
+    /**
+     * The demand value affects pricing when it is GT zero.
+     */
     public static int getOfferDemand(final AbstractVillager villager, final int offerIndex) throws InvalidNmsOperationsState {
         checkAllClassesAndMethodsOK();
         try {
@@ -152,7 +157,7 @@ public class NmsOperations {
         checkAllClassesAndMethodsOK();
         try {
             final Object nmsAbstractVillager = obcCraftAbstractVillager_getHandle.invoke(villager);
-            final Object nmsOffer = ((ArrayList)nmsEntityVillagerAbstract_getOffers.invoke(nmsAbstractVillager)).get(offerIndex);
+            final Object nmsOffer = ((ArrayList) nmsEntityVillagerAbstract_getOffers.invoke(nmsAbstractVillager)).get(offerIndex);
             nmsMerchantRecipe_setSpecialPrice.invoke(nmsOffer, specialPriceDiff);
             return true;
         } catch (IllegalAccessException | InvocationTargetException ex) {
@@ -160,11 +165,12 @@ public class NmsOperations {
             return false;
         }
     }
+
     public static boolean setOfferDemand(final AbstractVillager villager, final int offerIndex, final int demand) {
         checkAllClassesAndMethodsOK();
         try {
             final Object nmsAbstractVillager = obcCraftAbstractVillager_getHandle.invoke(villager);
-            final Object nmsOffer = ((ArrayList)nmsEntityVillagerAbstract_getOffers.invoke(nmsAbstractVillager)).get(offerIndex);
+            final Object nmsOffer = ((ArrayList) nmsEntityVillagerAbstract_getOffers.invoke(nmsAbstractVillager)).get(offerIndex);
             nmsMerchantRecipe_demandField.set(nmsOffer, demand);
             return true;
         } catch (IllegalAccessException | InvocationTargetException ex) {
