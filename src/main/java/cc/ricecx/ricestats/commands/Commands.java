@@ -13,8 +13,6 @@ public enum Commands {
     INFLUX_DEBUG(new InfluxDebugCommand()),
     ;
 
-
-
     private static final Commands[] CACHE = values();
 
     private final SubCommand command;

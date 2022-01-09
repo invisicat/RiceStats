@@ -34,15 +34,15 @@ public class PlayerVillagerTracker extends Tracker {
                 .addField("ingr2_item", evt.getBestNameForIngredientTwo() != null ? evt.getBestNameForIngredientTwo() : "")
                 .addField("ingr2_amt", evt.getIngredientTwoTotalAmount())
                 .build());
-
     }
 
     @TrackerInfo(name = "Raid Finish", description = "Listens for when the player finishes a raid", event = RaidFinishEvent.class)
-    public void onRaidSucceed(RaidFinishEvent evt) {}
+    public void onRaidSucceed(RaidFinishEvent evt) {
+    }
 
     @TrackerInfo(name = "Raid Fail", description = "Listens for when the player fails a raid", event = RaidStopEvent.class)
     public void onRaidFail(RaidStopEvent evt) {
-        if(!evt.getReason().equals(RaidStopEvent.Reason.NOT_IN_VILLAGE)) return;
+        if (!evt.getReason().equals(RaidStopEvent.Reason.NOT_IN_VILLAGE)) return;
     }
 
     @TrackerInfo(name = "Raid Waves", description = "Listens for when the player completes a raid wave", event = RaidSpawnWaveEvent.class)

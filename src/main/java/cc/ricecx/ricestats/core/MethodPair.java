@@ -3,7 +3,6 @@ package cc.ricecx.ricestats.core;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-
 /**
  * @author RiceCX
  *

@@ -1,6 +1,5 @@
 package cc.ricecx.ricestats.commands.subcommands;
 
-
 import cc.ricecx.ricestats.core.command.SubCommand;
 import cc.ricecx.ricestats.core.command.SubCommandInfo;
 import org.bukkit.command.CommandSender;

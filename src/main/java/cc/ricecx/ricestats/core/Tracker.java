@@ -22,16 +22,15 @@ public abstract class Tracker implements Listener {
 
     private static final Map<Class<? extends Event>, List<MethodPair>> eventMap = new HashMap<>();
 
-
     public Tracker() {
         boolean hasListener = false;
         for (Method declaredMethod : this.getClass().getDeclaredMethods()) {
-            if(declaredMethod.isAnnotationPresent(EventHandler.class)) {
+            if (declaredMethod.isAnnotationPresent(EventHandler.class)) {
                 hasListener = true;
                 continue;
             }
 
-            if(!declaredMethod.isAnnotationPresent(TrackerInfo.class)) continue;
+            if (!declaredMethod.isAnnotationPresent(TrackerInfo.class)) continue;
             TrackerInfo trackerInfo = declaredMethod.getAnnotation(TrackerInfo.class);
 
             logger.info("Tracking stat: " + trackerInfo.name());
@@ -39,25 +38,25 @@ public abstract class Tracker implements Listener {
             addTrackerToEvent(trackerInfo.event(), new MethodPair(this, declaredMethod));
         }
 
-        if(hasListener) Bukkit.getPluginManager().registerEvents(this, RiceStats.getInstance());
+        if (hasListener) Bukkit.getPluginManager().registerEvents(this, RiceStats.getInstance());
 
         logger.info("Registered tracker " + this.getClass().getSimpleName() + " to " + eventMap.size() + " events");
     }
 
     private static void addTrackerToEvent(Class<? extends Event> event, MethodPair methodPair) {
-        if(eventMap.containsKey(event)) {
+        if (eventMap.containsKey(event)) {
             eventMap.get(event).add(methodPair);
         } else {
             List<MethodPair> p = new ArrayList<MethodPair>();
             p.add(methodPair);
-            eventMap.put(event,  p);
+            eventMap.put(event, p);
         }
     }
 
     public static void registerAllTrackers() {
         for (Class<? extends Event> event : eventMap.keySet()) {
             Bukkit.getServer().getPluginManager().registerEvent(event, new TrackingEmptyListener(), EventPriority.MONITOR, (listener, event1) -> {
-                if(eventMap.get(event1.getClass()) == null) return;
+                if (eventMap.get(event1.getClass()) == null) return;
                 for (MethodPair methodPair : eventMap.get(event1.getClass())) {
                     try {
 
@@ -75,5 +74,6 @@ public abstract class Tracker implements Listener {
         RiceStats.getInstance().getInfluxDB().write(point);
     }
 
-    private static final class TrackingEmptyListener implements Listener { }
+    private static final class TrackingEmptyListener implements Listener {
+    }
 }
