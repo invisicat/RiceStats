@@ -6,6 +6,8 @@ prefix: RiceStatistics
 authors: [ RiceCX ]
 description: Plugin for my SMP Server to track general player statistics in a fancy way.
 website: https://ricecx.cc
+libraries:
+  - org.influxdb:influxdb-java:2.22
 commands:
   ricestats:
     description: "Entryway to Rice Stat's commands"

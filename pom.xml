@@ -46,12 +46,6 @@
                                     </excludes>
                                 </filter>
                             </filters>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org.influxdb</pattern>
-                                    <shadedPattern>cc.ricecx.ricestats.shaded.influxdb</shadedPattern>
-                                </relocation>
-                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
@@ -123,8 +117,8 @@
         <dependency>
             <groupId>org.influxdb</groupId>
             <artifactId>influxdb-java</artifactId>
-            <version>2.21</version>
-            <scope>compile</scope>
+            <version>2.22</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
