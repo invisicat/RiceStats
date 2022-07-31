@@ -22,7 +22,14 @@ public final class RiceStats extends JavaPlugin {
     public void onEnable() {
         registerConfig();
         registerCommand();
-        initializeInflux();
+        try {
+            initializeInflux();
+        } catch (Exception e) {
+            getLogger().severe("Failed to initialize InfluxDB");
+            getLogger().severe(e.getMessage());
+            e.printStackTrace();
+            getServer().getPluginManager().disablePlugin(this);
+        }
         registerTrackers();
     }
 
@@ -81,7 +88,7 @@ public final class RiceStats extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        influxDB.close();
+        if (influxDB != null) influxDB.close();
     }
 
     public static RiceStats getInstance() {

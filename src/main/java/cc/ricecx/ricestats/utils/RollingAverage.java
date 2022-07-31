@@ -3,14 +3,11 @@ package cc.ricecx.ricestats.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * @author Lucko
- * credits = https://github.com/lucko/spark
+ * credits = <a href="https://github.com/lucko/spark">Spark Profiler</a>
  */
 public class RollingAverage {
 
@@ -58,7 +55,7 @@ public class RollingAverage {
         synchronized (this) {
             BigDecimal min = BigDecimal.ZERO;
             for (BigDecimal sample : this.samples) {
-                if (min == BigDecimal.ZERO || sample.compareTo(min) < 0) {
+                if (Objects.equals(min, BigDecimal.ZERO) || sample.compareTo(min) < 0) {
                     min = sample;
                 }
             }
