@@ -1,6 +1,7 @@
 package cc.ricecx.ricestats.core;
 
 import org.bukkit.event.Event;
+import org.bukkit.event.EventHandler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

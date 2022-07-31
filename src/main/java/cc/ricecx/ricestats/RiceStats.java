@@ -2,7 +2,6 @@ package cc.ricecx.ricestats;
 
 import cc.ricecx.ricestats.commands.RiceStatsCommandExecutor;
 import cc.ricecx.ricestats.core.Tracker;
-import cc.ricecx.ricestats.core.event.VillagerTradeListener;
 import cc.ricecx.ricestats.trackers.player.*;
 import cc.ricecx.ricestats.trackers.server.ServerPerformanceTracker;
 import org.bukkit.command.PluginCommand;
@@ -66,7 +65,6 @@ public final class RiceStats extends JavaPlugin {
     }
 
     private void registerTrackers() {
-        new VillagerTradeListener(this);
         new ServerPerformanceTracker();
         new PlayerBlockTracker();
         new PlayerAnimalTracker();
